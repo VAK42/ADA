@@ -51,7 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class BackupService {
   private static final Logger log = LoggerFactory.getLogger(BackupService.class);
-  private static final ZoneId SCHEDULE_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
+  private static final ZoneId scheduleZone = ZoneId.of("Asia/Ho_Chi_Minh");
   private final BackupScheduleRepository scheduleRepository;
   private final BackupHistoryRepository historyRepository;
   private final NotificationService notificationService;
@@ -137,12 +137,12 @@ public class BackupService {
       if (!Boolean.TRUE.equals(s.getIsEnabled())) {
         return;
       }
-      LocalTime nowTime = LocalTime.now(SCHEDULE_ZONE).truncatedTo(ChronoUnit.MINUTES);
+      LocalTime nowTime = LocalTime.now(scheduleZone).truncatedTo(ChronoUnit.MINUTES);
       LocalTime scheduleTime = s.getTimeOfDay().truncatedTo(ChronoUnit.MINUTES);
       if (!nowTime.equals(scheduleTime)) {
         return;
       }
-      LocalDate today = LocalDate.now(SCHEDULE_ZONE);
+      LocalDate today = LocalDate.now(scheduleZone);
       if (s.getFrequency() == BackupFrequency.weekly) {
         int currentDayOfWeek = today.getDayOfWeek().getValue() % 7;
         if (s.getDayOfWeek() == null || currentDayOfWeek != s.getDayOfWeek()) {
