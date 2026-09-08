@@ -48,9 +48,11 @@ public class AdminRecruitmentController {
     @RequestParam(required = false) RecruitmentStatus status,
     @RequestParam(required = false) UUID departmentId,
     @RequestParam(required = false) EmploymentType employmentType,
-    @RequestParam(required = false) String search
+    @RequestParam(required = false) String search,
+    @RequestParam(required = false) Instant fromDate,
+    @RequestParam(required = false) Instant toDate
   ) {
-    return ResponseEntity.ok(APIResponse.ok("Recruitments Retrieved Successfully", recruitmentService.getAdminRecruitments(page, size, status, departmentId, employmentType, null, null, null, search)));
+    return ResponseEntity.ok(APIResponse.ok("Recruitments Retrieved Successfully", recruitmentService.getAdminRecruitments(page, size, status, departmentId, employmentType, null, null, null, search, fromDate, toDate)));
   }
   @GetMapping("/recruitments/exportExcel")
   public ResponseEntity<byte[]> exportRecruitmentsExcel(

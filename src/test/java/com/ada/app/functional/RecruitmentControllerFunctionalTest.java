@@ -52,8 +52,8 @@ public class RecruitmentControllerFunctionalTest {
     UUID recruitId = UUID.randomUUID();
     RecruitmentResponse recruitData = new RecruitmentResponse(recruitId, "Senior Java Backend Engineer", "seniorJavaBackendEngineer", UUID.randomUUID(), "Kỹ Thuật", UUID.randomUUID(), "Alexander Nguyen", "Hà Nội", EmploymentType.fulltime, "08:30 - 17:30", "Phát Triển Hệ Thống Backend", "Có Ít Nhất 3 Năm Kinh Nghiệm Java", "Thưởng Hiệu Suất & Bảo Hiểm Đầy Đủ", "https://ada.com/files/media/recruitCover.png", RecruitmentStatus.hiring, new BigDecimal("25000000"), new BigDecimal("45000000"), false, 2, 5L, 100, Instant.now(), Instant.now(), Instant.now());
     PageResponse<RecruitmentResponse> page = new PageResponse<>(List.of(recruitData), new PageResponse.Pagination(1, 10, 1, 1, true, true));
-    Mockito.when(recruitmentService.getAdminRecruitments(ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(page);
-    ResponseEntity<APIResponse<PageResponse<RecruitmentResponse>>> getPage = adminRecruitmentController.getRecruitments(1, 10, null, null, null, null);
+    Mockito.when(recruitmentService.getAdminRecruitments(ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(page);
+    ResponseEntity<APIResponse<PageResponse<RecruitmentResponse>>> getPage = adminRecruitmentController.getRecruitments(1, 10, null, null, null, null, null, null);
     Assertions.assertEquals(200, getPage.getStatusCode().value());
     Mockito.when(recruitmentService.getAdminRecruitmentById(recruitId)).thenReturn(recruitData);
     ResponseEntity<APIResponse<RecruitmentResponse>> getDetail = adminRecruitmentController.getRecruitmentById(recruitId);

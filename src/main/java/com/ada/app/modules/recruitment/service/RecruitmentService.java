@@ -83,10 +83,12 @@ public class RecruitmentService {
     String location,
     BigDecimal minSalary,
     BigDecimal maxSalary,
-    String search
+    String search,
+    Instant fromDate,
+    Instant toDate
   ) {
     Pageable pageable = PageRequest.of(Math.max(0, page - 1), Math.max(1, size), Sort.by("createdAt").descending());
-    Page<Recruitment> result = recruitmentRepository.findAll(RecruitmentSpecs.adminFilter(status, departmentId, employmentType, location, minSalary, maxSalary, search, null, null), pageable);
+    Page<Recruitment> result = recruitmentRepository.findAll(RecruitmentSpecs.adminFilter(status, departmentId, employmentType, location, minSalary, maxSalary, search, fromDate, toDate), pageable);
     List<UUID> ids = result.getContent().stream().map(Recruitment::getId).toList();
     Map<UUID, Long> countMap = new HashMap<>();
     if (!ids.isEmpty()) {
